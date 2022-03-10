@@ -47,16 +47,16 @@ a2enmod rewrite
 php5enmod mcrypt
 
 ## Instalación de PhpMyAdmin
-apt-get install wget
+apt-get install wget zip unzip
 wget -P ~/ https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip
 wget -P ~/ https://files.phpmyadmin.net/phpmyadmin.keyring
 gpg --import ~/phpmyadmin.keyring
 wget -P ~/ https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip.asc
 gpg --verify ~/phpMyAdmin-5.1.3-all-languages.zip.asc
-sudo mkdir /var/www/html/phpmyadmin
-sudo tar xvf ~/phpMyAdmin-5.1.3-all-languages.zip --strip-components=1 -C /var/www/html/phpmyadmin
-sudo cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
-sudo nano /var/www/html/phpmyadmin/config.inc.php
+mkdir /var/www/html/phpmyadmin
+unzip ~/phpMyAdmin-5.1.3-all-languages.zip -d /var/www/html/phpmyadmin
+cp /var/www/html/phpmyadmin/config.sample.inc.php /var/www/html/phpmyadmin/config.inc.php
+nano /var/www/html/phpmyadmin/config.inc.php
 chmod 660 /var/www/html/phpmyadmin/config.inc.php
 chown -R www-data:www-data /var/www/html/phpmyadmin
 
