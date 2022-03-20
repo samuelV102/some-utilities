@@ -13,10 +13,6 @@ if ((EUID)); then
   exit 1
 fi
 
-# Contraseña para el root de mysql
-read -p 'db_root_password [secretpasswd]: ' db_root_password
-echo
-
 read -p 'Actualizar apt? [y/n]: ' r_apache2_opt
 # Actualización del SO
 if ((opts_yes[$r_apache2_opt])); then
@@ -35,6 +31,9 @@ fi
 read -p 'Instalar Mysql? [y/n]: ' r_apache2_opt
 # Instalación de MySQL database server
 if ((opts_yes[$r_apache2_opt])); then
+  # Contraseña para el root de mysql
+  read -p 'db_root_password [secretpasswd]: ' db_root_password
+  echo
   export DEBIAN_FRONTEND="noninteractive"
   debconf-set-selections <<<"mysql-server mysql-server/root_password password $db_root_password"
   debconf-set-selections <<<"mysql-server mysql-server/root_password_again password $db_root_password"
