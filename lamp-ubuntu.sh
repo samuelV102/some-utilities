@@ -87,3 +87,17 @@ read -p 'Reiniciar servidor apache2? [y/n]: ' r_apache2_opt
 if ((opts_yes[$r_apache2_opt])); then
   systemctl reload apache2
 fi
+
+read -p 'Instalar y configurar herramientas de desarrollo? [y/n]: ' r_apache2_opt
+if ((opts_yes[$r_apache2_opt])); then
+
+  read -p 'Instalar y configurar node? [y/n]: ' r_apache2_opt
+  if ((opts_yes[$r_apache2_opt])); then
+    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    apt install nodejs -y
+    mkdir "${HOME}/.npm-packages"
+    npm config set prefix "${HOME}/.npm-packages"
+    cat config-files/.bashrc >>~/.bashrc
+    source ~/.bashrc
+  fi
+fi
