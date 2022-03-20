@@ -17,8 +17,12 @@ fi
 read -p 'db_root_password [secretpasswd]: ' db_root_password
 echo
 
+read -p 'Actualizar apt? [y/n]: ' r_apache2_opt
 # Actualización del SO
-apt update -y
+if ((opts_yes[$r_apache2_opt])); then
+
+  apt update -y
+fi
 
 read -p 'Instalar Apache2? [y/n]: ' r_apache2_opt
 ## Instalación de apache
