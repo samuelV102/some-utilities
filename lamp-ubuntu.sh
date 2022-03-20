@@ -44,7 +44,7 @@ read -p 'Instalar php 8.1? [y/n]: ' r_apache2_opt
 ## Instalación de PHP
 if ((opts_yes[$r_apache2_opt])); then
   apt install software-properties-common && add-apt-repository ppa:ondrej/php -y
-  apt update
+  apt update -y
   sudo apt upgrade -y
   apt install php8.1 libapache2-mod-php8.1 php8.1-mysql php8.1-fpm libapache2-mod-fcgid php-mbstring php-zip php-gd php-json php-curl -y
   a2enmod proxy_fcgi setenvif && a2enconf php8.1-fpm
@@ -61,7 +61,7 @@ fi
 read -p 'Instalar phpmyadmin? [y/n]: ' r_apache2_opt
 ## Instalación de PhpMyAdmin
 if ((opts_yes[$r_apache2_opt])); then
-  apt-get install wget zip unzip -y
+  apt install wget zip unzip -y
   wget -P ~/ https://files.phpmyadmin.net/phpMyAdmin/5.1.3/phpMyAdmin-5.1.3-all-languages.zip
   wget -P ~/ https://files.phpmyadmin.net/phpmyadmin.keyring
   gpg --import ~/phpmyadmin.keyring
@@ -75,6 +75,15 @@ if ((opts_yes[$r_apache2_opt])); then
   chown -R www-data:www-data /var/www/html/phpmyadmin
 fi
 
-# Configuracion general
-chown -R www-data:www-data /var/www
-systemctl reload apache2
+read -p 'Configurar permisos para los usuarios www-data y USER para el directorio /var/www? [y/n]: ' r_apache2_opt
+if ((opts_yes[$r_apache2_opt])); then
+  # Configuracion general
+  usermod -a -G www-data $USER
+  chown -R www-data:www-data /var/www
+  chmod -R 775 /var/www
+fi
+
+read -p 'Reiniciar servidor apache2? [y/n]: ' r_apache2_opt
+if ((opts_yes[$r_apache2_opt])); then
+  systemctl reload apache2
+fi
