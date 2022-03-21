@@ -60,7 +60,7 @@ if ((opts_yes[$r_apache2_opt])); then
 
   # Habilitación de Mod Rewrite
   a2enmod rewrite
-  php5enmod mcrypt
+  phpenmod mcrypt
 fi
 
 read -p 'Instalar phpmyadmin? [y/n]: ' r_apache2_opt
@@ -83,7 +83,8 @@ fi
 read -p 'Configurar permisos para los usuarios www-data y USER para el directorio /var/www? [y/n]: ' r_apache2_opt
 if ((opts_yes[$r_apache2_opt])); then
   # Configuracion general
-  usermod -a -G www-data $USER
+  read -p 'Nombre de usuario para vincular al grupo www-data: ' r_apache2_opt
+  usermod -a -G www-data $r_apache2_opt
   chown -R www-data:www-data /var/www
   chmod -R 775 /var/www
 fi
@@ -100,8 +101,8 @@ if ((opts_yes[$r_apache2_opt])); then
   if ((opts_yes[$r_apache2_opt])); then
     curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
     apt install nodejs -y
-    mkdir "${HOME}/.npm-packages"
-    npm config set prefix "${HOME}/.npm-packages"
+    mkdir ~/.npm-packages
+    npm config set prefix ~/.npm-packages
     cat config-files/.bashrc >>~/.bashrc
     source ~/.bashrc
     npm install -g npm@latest
