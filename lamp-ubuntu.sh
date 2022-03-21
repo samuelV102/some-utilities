@@ -136,6 +136,7 @@ if ((opts_yes[$r_apache2_opt])); then
     a2ensite vhost-dev-symfony.conf
     a2ensite vhost-prod-symfony.conf
     systemctl reload apache2
+    apache2ctl configtest
   fi
 
 fi
