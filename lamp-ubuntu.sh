@@ -131,8 +131,8 @@ if ((opts_yes[$r_apache2_opt])); then
   if ((opts_yes[$r_apache2_opt])); then
     mkdir /var/www/symfony
     mkdir /var/www/symfony/public
-    cat config-files/vhost-dev-symfony.conf >>/etc/apache2/sites-available/vhost-dev-symfony.conf
-    cat config-files/vhost-prod-symfony.conf >>/etc/apache2/sites-available/vhost-prod-symfony.conf
+    cat config-files/vhost-dev-symfony.conf >/etc/apache2/sites-available/vhost-dev-symfony.conf
+    cat config-files/vhost-prod-symfony.conf >/etc/apache2/sites-available/vhost-prod-symfony.conf
   fi
 
 fi
