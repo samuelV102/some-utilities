@@ -46,7 +46,7 @@ if ((opts_yes[$r_apache2_opt])); then
   apt install software-properties-common && add-apt-repository ppa:ondrej/php -y
   apt update -y
   sudo apt upgrade -y
-  apt install php8.1 libapache2-mod-php8.1 php8.1-mysql php8.1-fpm libapache2-mod-fcgid php-mbstring php-zip php-gd php-json php-curl php8.1-xdebug -y
+  apt install php8.1 libapache2-mod-php8.1 php8.1-mysql php8.1-fpm libapache2-mod-fcgid php-mbstring php-zip php-gd php-json php-curl php-xml php-intl php8.1-xdebug -y
   a2enmod proxy_fcgi setenvif && a2enconf php8.1-fpm
   nano /etc/apache2/mods-enabled/dir.conf
   systemctl reload apache2
@@ -125,6 +125,13 @@ if ((opts_yes[$r_apache2_opt])); then
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40b5f787e49f22d4c2f19492ac310e8cba5b96ac8b64115ac402c8cd292b8a03482574915d1a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
     php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  fi
+
+  read -p 'Configurar puertos 8080 y 8081 para pruebas de aplicaciones symfony? [y/n]: ' r_apache2_opt
+  if ((opts_yes[$r_apache2_opt])); then
+    mkdir /var/www/symfony/public
+    cat config-files/vhost-dev-symfony.conf >>/etc/apache2/sites-available/vhost-dev-symfony.conf
+    cat config-files/vhost-prod-symfony.conf >>/etc/apache2/sites-available/vhost-prod-symfony.conf
   fi
 
 fi
