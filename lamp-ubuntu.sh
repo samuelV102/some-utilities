@@ -129,6 +129,7 @@ if ((opts_yes[$r_apache2_opt])); then
 
   read -p 'Configurar puertos 8080 y 8081 para pruebas de aplicaciones symfony? [y/n]: ' r_apache2_opt
   if ((opts_yes[$r_apache2_opt])); then
+    mkdir /var/www/symfony
     mkdir /var/www/symfony/public
     cat config-files/vhost-dev-symfony.conf >>/etc/apache2/sites-available/vhost-dev-symfony.conf
     cat config-files/vhost-prod-symfony.conf >>/etc/apache2/sites-available/vhost-prod-symfony.conf
