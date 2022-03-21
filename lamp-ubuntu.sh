@@ -133,6 +133,7 @@ if ((opts_yes[$r_apache2_opt])); then
     mkdir /var/www/symfony/public
     cat config-files/vhost-dev-symfony.conf >/etc/apache2/sites-available/vhost-dev-symfony.conf
     cat config-files/vhost-prod-symfony.conf >/etc/apache2/sites-available/vhost-prod-symfony.conf
+    cat config-files/ports.conf >/etc/apache2/ports.conf
     a2ensite vhost-dev-symfony.conf
     a2ensite vhost-prod-symfony.conf
     systemctl reload apache2
