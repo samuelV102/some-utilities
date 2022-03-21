@@ -99,5 +99,13 @@ if ((opts_yes[$r_apache2_opt])); then
     npm config set prefix "${HOME}/.npm-packages"
     cat config-files/.bashrc >>~/.bashrc
     source ~/.bashrc
+    npm install -g npm@latest
+
+    read -p 'Instalar y configurar yarn? [y/n]: ' r_apache2_opt
+    if ((opts_yes[$r_apache2_opt])); then
+      npm install --global yarn
+      yarn --version
+    fi
   fi
+
 fi
